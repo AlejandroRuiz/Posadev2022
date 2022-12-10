@@ -1,42 +1,271 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              x:Class="AccessibilityDemo.MainPage">
+    <Grid
+        RowDefinitions="*,75"
+        IgnoreSafeArea="True">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <ScrollView
+            HorizontalScrollBarVisibility="Never">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+            <Grid
+                RowDefinitions="Auto,Auto,*"
+                RowSpacing="15"
+                Padding="30,25,30,15">
+                <Border
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 25">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+                    <Border.Shadow>
+                        <Shadow
+                            Radius="10"
+                            Opacity="0.2" />
+                    </Border.Shadow>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+                    <Grid
+                        RowDefinitions="55,Auto,Auto,Auto"
+                        VerticalOptions="Center">
+                        <Image
+                            SemanticProperties.Description="Menu"
+                            Source="sort"
+                            HeightRequest="24"
+                            HorizontalOptions="Start"
+                            Margin="15,0,0,0">
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                            <Image.GestureRecognizers>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                                <TapGestureRecognizer
+                                    Tapped="TapGestureRecognizer_Tapped" />
 
+                            </Image.GestureRecognizers>
+
+                        </Image>
+                        <Image
+                            SemanticProperties.Description="Options"
+                            Source="more"
+                            HeightRequest="24"
+                            HorizontalOptions="End"
+                            Margin="0,0,15,0">
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="TapGestureRecognizer_Tapped_1" />
+                            </Image.GestureRecognizers>
+
+                        </Image>
+                        <VerticalStackLayout
+                            Grid.Row="1"
+                            SemanticProperties.Description="POSADEV, Software Engineer">
+                            <Frame
+                               IsClippedToBounds="True"
+                               WidthRequest="100"
+                               HeightRequest="100"
+                               CornerRadius="50"
+                               Padding="0"
+                               HorizontalOptions="Center">
+                                <Image
+                                    Source="{Binding ProfilePhotoSource}"
+                                    WidthRequest="100"
+                                    HeightRequest="100"
+                                    Aspect="AspectFill" />
+                            </Frame>
+
+                            <Label
+                                Text="{Binding ProfileName}"
+                                FontSize="22"
+                                FontAttributes="Bold"
+                                LineBreakMode="NoWrap"
+                                TextColor="{StaticResource Primary}"
+                                HorizontalTextAlignment="Center"
+                                Padding="0,15,0,0" />
+
+                            <Label
+                                Text="{Binding ProfileDetails}"
+                                FontSize="14"
+                                TextColor="Black"
+                                HorizontalTextAlignment="Center"
+                                Padding="0,5,0,0"
+                                Margin="5,0,5,0" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout
+                            Grid.Row="3"
+                            Spacing="30"
+                            Padding="50,20,50,15">
+                            <VerticalStackLayout
+                                SemanticProperties.Description="{Binding Income, StringFormat='Income ${0}'}">
+                                <Label
+                                    Text="Income"
+                                    FontSize="13"
+                                    HorizontalTextAlignment="Center" />
+
+                                <Label
+                                    Text="{Binding Income, StringFormat='${0}'}"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Primary}"
+                                    HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                SemanticProperties.Description="{Binding Expenses, StringFormat='Expenses ${0}'}">
+                                <Label
+                                    Text="Expenses"
+                                    FontSize="13"
+                                    HorizontalTextAlignment="Center" />
+
+                                <Label
+                                    Text="{Binding Expenses, StringFormat='${0}'}"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Primary}"
+                                    HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                SemanticProperties.Description="{Binding Loan, StringFormat='Loan ${0}'}">
+                                <Label
+                                    Text="Loan"
+                                    FontSize="13"
+                                    HorizontalTextAlignment="Center" />
+                                <Label
+                                    Text="{Binding Loan, StringFormat='${0}'}"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Primary}"
+                                    HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout
+                    Grid.Row="1"
+                    SemanticProperties.Description="{Binding Source={x:Static system:DateTime.Now}, StringFormat='Overview: {0:d MMM, yyyy}'}">
+                    <Label
+                        Text="Overview"
+                        FontAttributes="Bold"
+                        FontSize="22"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        Text="{Binding Source={x:Static system:DateTime.Now}, StringFormat='{0:d MMM, yyyy}'}"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center"  />
+
+                </VerticalStackLayout>
+
+                <!-- Overview items. -->
+                <VerticalStackLayout Grid.Row="2"
+                                     BindableLayout.ItemsSource="{Binding OverviewItems}"
+                                     Spacing="18">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                StrokeThickness="0"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 25"
+                                SemanticProperties.Description="{Binding Description}">
+                                <Border.Shadow>
+                                    <Shadow
+                                        Radius="10"
+                                        Opacity="0.2" />
+                                </Border.Shadow>
+
+                                <Grid ColumnDefinitions="40,*"
+                                      ColumnSpacing="10"
+                                      Padding="15,10,15,10"
+                                      VerticalOptions="Center">
+                                    <Border StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 15"
+                                            VerticalOptions="Center"
+                                            HeightRequest="40" 
+                                            BackgroundColor="{StaticResource SeconaryBackground}">
+                                        <Image
+                                            Source="{Binding IconSource}"
+                                            HeightRequest="30" />
+                                    </Border>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontSize="16"
+                                            FontAttributes="Bold" />
+
+                                        <Label
+                                            Text="{Binding Details}"
+                                            FontSize="12" />
+
+                                        <Label
+                                            Grid.Column="3"
+                                            Text="{Binding Amount, StringFormat='${0}'}"
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+        <!-- Bottom navigation bar. -->
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                StrokeThickness="0">
+            <Border.Shadow>
+                <Shadow
+                    Radius="40"
+                    Opacity="0.1" />
+            </Border.Shadow>
+            <Grid
+                RowDefinitions="*"
+                ColumnDefinitions="*,*,*,*,*"
+                VerticalOptions="Center">
+                <Image
+                    Grid.Column="0"
+                    SemanticProperties.Description="Home Tab"
+                    Source="home"
+                    HeightRequest="30" />
+
+                <Image
+                    Grid.Column="1"
+                    SemanticProperties.Description="Cards Tab"
+                    Source="credit_card"
+                    HeightRequest="30" />
+
+                <Border Grid.Column="2"
+                        SemanticProperties.Description="Add Tab"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{StaticResource Primary}"
+                        HeightRequest="38"
+                        WidthRequest="42">
+                    <Image
+                        Source="add"
+                        HeightRequest="22"
+                        WidthRequest="22" />
+                </Border>
+
+                <Image
+                    Grid.Column="3"
+                    SemanticProperties.Description="Account Tab"
+                    Source="attach_money"
+                    HeightRequest="30" />
+                <Image
+                    Grid.Column="4"
+                    SemanticProperties.Description="Profile Tab"
+                    Source="account"
+                    HeightRequest="30" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>
-

@@ -1,25 +1,25 @@
-﻿namespace AccessibilityDemo;
+﻿using AccessibilityDemo.ViewModels;
+
+namespace AccessibilityDemo;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    public MainPage()
+    {
+        BindingContext = new MainViewModel();
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    async void TapGestureRecognizer_Tapped(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    {
+        await Task.Delay(1000);
+        SemanticScreenReader.Announce("Menu Tapped");
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+    async void TapGestureRecognizer_Tapped_1(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    {
+        await Task.Delay(1000);
+        SemanticScreenReader.Announce("Options Tapped");
+    }
 }
-
-
